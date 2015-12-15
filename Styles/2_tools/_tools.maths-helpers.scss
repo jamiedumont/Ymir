@@ -1,0 +1,29 @@
+/*********************************
+
+	MATHS HELPERS
+
+	Halve and double numbers, returning rounded integers.
+
+	.foo {
+		 padding: halve(3.2px);
+	}
+
+
+**********************************/
+
+
+@function quarter($bikesoup-number) {
+    @return round($bikesoup-number / 4);
+}
+
+@function halve($bikesoup-number) {
+    @return round($bikesoup-number / 2);
+}
+
+@function double($bikesoup-number) {
+    @return round($bikesoup-number * 2);
+}
+
+@function quadruple($bikesoup-number) {
+    @return round($bikesoup-number * 4);
+}

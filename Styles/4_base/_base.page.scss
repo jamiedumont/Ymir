@@ -1,0 +1,12 @@
+body {
+	min-width: 320px;
+	color: $black;
+	font-family: $base-font;
+	@include font-size($base-font-size, $base-line-height);
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: none;
+}
+
+p {
+	@include font-size($base-font-size);
+}

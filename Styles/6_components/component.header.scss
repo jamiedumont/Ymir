@@ -1,0 +1,40 @@
+.main-header {
+  display: block;
+}
+
+.header__logo {
+  width: 120px;
+  position: absolute;
+  top: $base-spacing-unit;
+  left: $base-spacing-unit;
+
+}
+
+.header__menu {
+  display: block;
+  margin: 0 auto;
+  @include media-query(med) {
+    position: absolute;
+    top: $base-spacing-unit;
+    right: $base-spacing-unit;
+  }
+}
+
+.header__menu-item {
+  display: inline-block;
+  margin-left: $base-spacing-unit;
+  margin-top: $base-spacing-unit;
+  padding: 3px;
+  a {
+    font-family: $header-font;
+    color: $black;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $colour-one;
+  }
+}
+
+.current {
+  border-bottom: 2px solid $colour-one;
+}
