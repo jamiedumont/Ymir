@@ -1,0 +1,1342 @@
+@charset "UTF-8";
+/* MAIN SCSS
+
+	This project has been organised in accordance with Harry Robert's ITCSS
+	architecture. The aim of this is to harness the cascading nature of CSS
+	and use it as an advantage rather than a constant headache. For info please
+	read: https://speakerdeck.com/dafed/managing-css-projects-with-itcss
+
+	The Sass written also adhears to much of his CSS Guidelines found here.
+	Anyone wanting to add-to or amend the codebase should start by reading these.
+	Whilst not all guidelines are adheared to, many are; and editors should be
+	able to recognise these.
+
+	http://cssguidelin.es/
+
+*/
+/*** SETTINGS ***
+
+	Here we include files that control the basics of our project. This will
+	include globally available settings and variables such as our colours,
+	default font sizes, and spacing units.
+
+*/
+/*********************************
+
+	GLOBAL SETTINGS
+
+**********************************/
+/*Light Blue*/
+/*Dark Blue*/
+/*Burgundy*/
+/*Cream*/
+/*Pink*/
+/*********************************
+
+	BREAKPOINTS
+
+	Breakpoints are created in a list and given memorable alias.
+
+	These are invoked using the 'media-query' mixin found in _tools.media-queries.scss
+
+**********************************/
+/*** TOOLS ***
+
+	In 'Tools' we create our mixins, helper functions, and globally-available
+	tools.
+
+*/
+/*********************************
+
+	FONT-SIZE MIXIN
+
+	This mixin creates a fully formed type style (sizing and vertical rhythm) 
+	by passing in asingle value, e.g:
+
+	.foo {
+		@include font-size(12px);
+	}
+
+	This will generate a rem-based font-size with its pixel fallback, as well as
+	a unitless line-height which will place the element on your baseline, e.g.:
+
+	.foo {
+		font-size: 12px;
+		font-size: 0.75rem;
+		line-height: 2;
+	}
+
+	If you do not want the framework to generate you a line-height automatically, you
+	simply pass in your own as a second paramater:
+
+	.foo {
+		@include font-size(12px, 1.5);
+	}
+
+	This will yield:
+
+	.foo {
+		font-size: 12px;
+		font-size: 0.75rem;
+		line-height: 1.5;
+	}
+
+	This parameter can be any integer, ‘inherit’, or ‘normal’. If you don’t want
+	a line-height at all, pass in a second paramater of ‘none’ or ‘false’:
+
+	.foo {
+		@include font-size(12px, none);
+	}
+
+	This will yield:
+
+	.foo {
+		font-size: 12px;
+		font-size: 0.75rem;
+	}
+
+**********************************/
+/*********************************
+
+	FLEX GRID (LAYOUT) MIXIN
+
+	The following mixins will create fully-formed styles that will allow us to control
+	the widths of items in our flex grid.
+
+	For example:
+
+	.layout--25 {
+		@include layout(25%);
+	}
+
+	Will create a class, that when applied to the parent ('layout') element, that constrains it's children
+	to 25% of the viewport width, and wraps the overflow.
+
+	Like so...
+
+	.layout--25 {
+		flex-wrap: wrap;
+		.layout__item {
+			flex: 0 0 25%;
+		}
+	}
+
+	The other mixins create a similar output, but wrapped in a media query. The 'flex-wrap: wrap' 
+	is ommited as it should be inherited from the base layout class. The syntax is the same as the first
+	mixin. e.g:
+
+	.\@med-layout--25 {
+		@include med-layout(25%);
+	}
+
+	.\@lrg-layout--25 {
+		@include lrg-layout(25%);
+	}
+
+	.\@xlrg-layout--25 {
+		@include xlrg-layout(25%);
+	}
+
+
+
+**********************************/
+/*********************************
+
+	MATHS HELPERS
+
+	Halve and double numbers, returning rounded integers.
+
+	.foo {
+		 padding: halve(3.2px);
+	}
+
+
+**********************************/
+/*********************************
+
+	MEDIA QUERY MIXIN
+
+	A simple mixin to quickly generate whole media queries from the aliases and
+	conditions defined in `_settings.breakpoints.scss`.
+
+	Usage:
+
+	.foo {
+		color: green;
+		@include media-query(sml) {
+			color: red;
+		}
+	}
+
+**********************************/
+/*** GENERIC ***
+
+	Ground zero styles
+
+*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*********************************
+
+    BOX-SIZING
+
+    Set the global `box-sizing` state to `border-box`.
+
+    Read read below for more in-depth explanation
+    css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+    paulirish.com/2012/box-sizing-border-box-ftw
+
+**********************************/
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+/*********************************
+
+    SHARED MARGINS
+
+    Where `margin-bottom` is concerned,this value will be the same as the
+    base line-height. This allows us to keep a consistent vertical rhythm.
+    As per: csswizardry.com/2012/06/single-direction-margin-declarations
+
+
+    Where `margin-left` is concerned we want to try and indent certain elements
+    by a consistent amount. Define that amount once,here.
+
+**********************************/
+ul, ol, dl,
+blockquote, p, address,
+hr,
+table,
+fieldset, figure,
+pre {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem; }
+
+ul, ol, dd {
+  margin-left: 24px; }
+
+/*** BASE ***
+
+	Unclassed HTML selectors
+
+*/
+body {
+  min-width: 320px;
+  color: #333;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: none; }
+
+p {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0; }
+  p + p {
+    margin-top: 1em; }
+
+/*********************************
+
+	HEADING STYLES
+
+**********************************/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: 1.5rem 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+h1 {
+  font-size: 64px;
+  font-size: 4rem;
+  line-height: 1.125; }
+
+h2 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1; }
+
+h3 {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+h4 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2; }
+
+h5 {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+h6 {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.7142857143; }
+
+/*********************************
+
+	IMAGE STYLES
+
+	1. 	Fluid images for responsive purposes.
+ 	2. 	Offset `alt` text from surrounding copy.
+ 	3. 	Setting `vertical-align` removes the whitespace that appears under `img`
+ 		elements when they are dropped into a page as-is. Safer alternative to
+		using `display: block;`.
+
+**********************************/
+img {
+  max-width: 100%;
+  /* [1] */
+  font-style: italic;
+  /* [2] */
+  vertical-align: middle;
+  /* [3] */ }
+
+/*********************************
+
+	GOOGLE MAPS STYLES
+
+	1. 	Google Maps breaks if `max-width: 100%` acts upon it; use their selector
+		to remove the effects.
+	2. 	If a `width` and/or `height` attribute have been explicitly defined, let’s
+		not make the image fluid.
+
+**********************************/
+.gm-style img,
+img[width],
+img[height] {
+  /* [2] */
+  max-width: none; }
+
+a {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+input[type="submit"]::-moz-focus-inner {
+  border: none;
+  padding: 0; }
+
+input[type="submit"]:hover {
+  cursor: pointer; }
+
+input[type=image] {
+  padding: 0;
+  border: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote p {
+  font-size: 21.3333333333px;
+  font-size: 1.3333333333rem;
+  line-height: 1.125;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/*** OBJECTS ***
+
+	Cosmetic free design patterns
+
+*/
+/*********************************
+
+	BOX OBJECT
+
+	The box object simply 'boxes off' content. Use to add padding all the way 
+	around a component.
+
+	Can be extended with additional classes that change the amount of padding.
+
+**********************************/
+/* 1 - value to be replaced by spacing variable */
+.o-box {
+  padding: 10px;
+  /*[1]*/ }
+  .o-box > :last-child {
+    margin-bottom: 0; }
+
+.header-thing {
+  text-align: center; }
+  .header-thing hr {
+    color: #DCDCDC; }
+  .header-thing .header-content {
+    margin: 0;
+    text-transform: uppercase;
+    background: white;
+    padding: 0 1em;
+    display: inline-block;
+    position: relative;
+    top: -1.6em; }
+
+/*********************************
+
+	LEDE STYLING
+
+	The `.lede` class is used to make the introductory text (usually a paragraph)
+	of a document slightly larger: en.wikipedia.org/wiki/Lede_(news)
+
+**********************************/
+.o-lede {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.3333333333; }
+
+/*********************************
+
+	BARE LIST OBJECT
+
+	This object simply removes any indents and bullet points from lists.
+
+	NOTE: This object is semi-redundant as the list-style is 'none' by default on this project.
+
+**********************************/
+.o-list-bare {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+/*********************************
+
+	LAYOUT OBJECT
+
+	This object forms the underpinning of our grid system. It uses flex to
+	dynamically adjust the layouts. The use of the flex property removes
+	support for IE 9 and below. All other browsers are supported through the use
+	of Autoprefixer to cover flex's three syntaxs.
+
+	The layout comprises of only two, base elements; which are then extended.
+
+	'.layout' is our parent element
+
+	'.layout__item' is our child element
+
+	When implemented as above, all child elements will sit on one row, and
+	adjust their widths to fit within the screen size.
+
+	For example:
+
+	<div class="layout">
+		<div class="layout__item"></div>
+		<div class="layout__item"></div>
+		<div class="layout__item"></div>
+		<div class="layout__item"></div>
+	</div>
+
+	Will create a row of four columns, where each child takes up 25% of the
+	viewport width.
+
+	This layout contains no gutters, margins or paddings. These should instead
+	be determined by the margin property of each '.layout__item's content.
+
+**********************************/
+.layout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.layout__item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+/*********************************
+
+	CONTROLLING WIDTHS
+
+	If instead of dynamically sizing each child to fit in one row, we can define
+	the desired number of columns per row, and wrap the overflow.
+
+	This allows us to create a layout that can take an unspecified number of
+	children, but in a prescribed layout.
+
+	The class that modifies the behaviour is applied to the parent class ('.layout'),
+	and effects the wrap, and subsequently the width of the children.
+
+	A mixin has been written to create consistent rules. More details can be found
+	in _tools.mixins.scss
+
+	At present, only a small number of widths have been created; as there should
+	be little need for more given the inherent flexibility of the grid, and the use
+	of utility classes to give fine-grain control of individual child elements.
+
+
+**********************************/
+.layout--10 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--10 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 10%;
+        -ms-flex: 0 0 10%;
+            flex: 0 0 10%; }
+
+.layout--20 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--20 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 20%;
+        -ms-flex: 0 0 20%;
+            flex: 0 0 20%; }
+
+.layout--25 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--25 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%; }
+
+.layout--33 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--33 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.3333%;
+        -ms-flex: 0 0 33.3333%;
+            flex: 0 0 33.3333%; }
+
+.layout--50 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--50 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%; }
+
+.layout--100 {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .layout--100 .layout__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%; }
+
+/*********************************
+
+	DEALING WITH MEDIA QUERIES
+
+	The grid also accomodates responsive design with ease through the use of
+	additional classes for each breakpoint. The grid follows the 'mobile-first'
+	principle, meaning that these additional classes override the default widths
+	as screen size increases.
+
+	It is of course most common that the number of of columns increases as screen
+	size increases, but the inverse can also be achieved if desired.
+
+	The classes use the @ character as a prefix. This is valid in HTML, but must
+	be escaped (\) in CSS. The use of the @ character has been chosen as it gives
+	a layout great readability by following human speach.
+
+	For example:
+
+	<div class="layout layout--100 @med-layout--50 @lrg-layout--25">
+
+	This, whilst being quite verbose, allows layouts to be quickly and easily
+	written and understood, removing much of the mental overhead usually required
+	when using a grid system.
+
+	I wanted the syntax to be clear, memorable and new developer friendly; making
+	it easy to pick up and start using with very little upfront learning.
+
+
+**********************************/
+@media screen and (min-width: 40.063em) {
+  .\@med-layout--10 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--10 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 10%;
+          -ms-flex: 0 0 10%;
+              flex: 0 0 10%; }
+  .\@med-layout--20 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--20 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 20%;
+          -ms-flex: 0 0 20%;
+              flex: 0 0 20%; }
+  .\@med-layout--25 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--25 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 25%;
+          -ms-flex: 0 0 25%;
+              flex: 0 0 25%; }
+  .\@med-layout--33 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--33 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 33.3333%;
+          -ms-flex: 0 0 33.3333%;
+              flex: 0 0 33.3333%; }
+  .\@med-layout--50 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--50 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 50%;
+          -ms-flex: 0 0 50%;
+              flex: 0 0 50%; }
+  .\@med-layout--100 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@med-layout--100 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 100%;
+          -ms-flex: 0 0 100%;
+              flex: 0 0 100%; } }
+
+@media screen and (min-width: 64em) {
+  .\@lrg-layout--10 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--10 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 10%;
+          -ms-flex: 0 0 10%;
+              flex: 0 0 10%; }
+  .\@lrg-layout--20 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--20 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 20%;
+          -ms-flex: 0 0 20%;
+              flex: 0 0 20%; }
+  .\@lrg-layout--25 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--25 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 25%;
+          -ms-flex: 0 0 25%;
+              flex: 0 0 25%; }
+  .\@lrg-layout--33 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--33 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 33.3333%;
+          -ms-flex: 0 0 33.3333%;
+              flex: 0 0 33.3333%; }
+  .\@lrg-layout--50 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--50 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 50%;
+          -ms-flex: 0 0 50%;
+              flex: 0 0 50%; }
+  .\@lrg-layout--100 {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+    .\@lrg-layout--100 .layout__item {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 100%;
+          -ms-flex: 0 0 100%;
+              flex: 0 0 100%; } }
+
+/*********************************
+
+    BUTTONS
+
+    (We all love buttons!)
+
+    File layout:
+
+    1 - Button Settings & Switches
+    2 - Basic Button
+    3 - Extend Button Sizes
+    4 - Extend Button Colours
+
+
+
+    Button Settings & Switches
+
+**********************************/
+/*********************************
+
+    Basic Button
+
+    1. Allow us to style box model properties.
+    2. Line different sized buttons up a little nicer.
+    3. Make buttons inherit font styles (often necessary when styling `input`s as buttons).
+    4. Reset/normalize some styles.
+    5. Force all button-styled elements to appear clickable.
+    6. Subtract the border size from the padding value so that buttons do not grow larger as we add borders.
+
+**********************************/
+.o-btn {
+  display: inline-block;
+  /* [1] */
+  vertical-align: middle;
+  /* [2] */
+  font: inherit;
+  /* [3] */
+  text-align: center;
+  /* [4] */
+  margin: 0;
+  /* [4] */
+  cursor: pointer;
+  /* [5] */
+  padding: 11px 23px;
+  /* [6] */
+  background-color: #4a8ec2;
+  border: 1px solid #4a8ec2; }
+  .o-btn, .o-btn:hover, .o-btn:active, .o-btn:focus {
+    text-decoration: none;
+    /* [4] */
+    color: #fff; }
+
+/*
+ * Fix a Firefox bug whereby `input type="submit"` gains 2px extra padding.
+ */
+.o-btn::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/*********************************
+
+    Extend Button Sizes
+
+**********************************/
+/*********************************
+
+	RATIO WRAPPER
+
+	This object adds an outer wrapper to an element, forcing the contents to a 
+	set ratio. The height scales proportionately with the width, which is what
+	defines the dimensions of the element.
+
+	USE:
+
+	.o-ratio__wrapper & .o-ratio__object combine to form a wrapper around the element
+	to be contrained.
+
+	For example:
+
+	<div class="o-ratio__wrapper">
+		<div class="o-ratio__object">
+			<Element contained at ratio of 4:3>
+		</div>
+	</div>
+
+	By default, o-ratio__wrapper will be set at a 4:3 ratio.
+
+	Modifiers can be used to change the ratio when applied to the 
+	.o-ratio__wrapper <div> like so:
+
+	<div class="o-ratio__wrapper o-ratio__wrapper--16by9">
+		<div class="o-ratio__object">
+			<Element contained at ratio of 16:9>
+		</div>
+	</div>
+
+
+**********************************/
+.o-ratio__wrapper {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0; }
+
+.o-ratio__object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.o-ratio__wrapper--16by9 {
+  padding-bottom: 56.25%; }
+
+/*********************************
+
+  MEDIA OBJECT
+
+  This object, based on Nicole Sullivan's Media Object (http://goo.gl/5GrKJ); 
+  but implemented using flex. 
+
+  By using flex, the object take's on the abilities of Harry Robert's Flag
+  Object (http://goo.gl/9AcBHp) without using "display:table;"
+
+  The use of flex prohibits use of these object on older browsers, however it 
+  is deemed acceptable considering current useage stats and the benefits that 
+  flex brings.
+
+  USE:
+
+  The media object is used as such:
+
+    <div class="o-media">
+      <div class="o-media__img">
+        <img>
+      </div>
+      <div class="o-media__body">
+        <h1 class="o-media__title"> MEDIA TITLE </div>
+        <p> ... </p>
+      </div>
+    </div>  
+
+  Which will produce an object similar to this:;
+
+  +---------+ MEDIA TITLE
+  |         | ~~~~~ ~~~~~ ~~~~
+  |         | ~~~~~~~~~ ~~~~~~
+  |         |
+  +---------+
+
+
+
+  It can be modified using the 'centre' or 'reverse' flags. These are applied to
+  the ".o-media" div, like so:
+
+  <div class="o-media o-media--centre">
+    ...
+  </div>
+
+  AND
+
+  <div class="o-media o-media--reverse">
+    ...
+  </div>
+
+
+  These will display like so (respectively):
+
+  +---------+
+  |         | MEDIA TITLE
+  |         | ~~~~~~~ ~~~~~ ~~
+  |         | ~~~~~~~~~~~~
+  +---------+
+
+  AND
+
+        MEDIA TITLE +---------+
+  ~~~~~~ ~~~~ ~~~~~ |         |
+  ~~~~ ~~~ ~~~ ~~~~ |         |
+                    |         |
+                    +---------+
+
+**********************************/
+.o-media {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 1em; }
+
+.o-media__img {
+  margin-right: 1em; }
+
+.o-media__body {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.o-media__body,
+.o-media__body :last-child {
+  margin-bottom: 0; }
+
+.o-media__title {
+  margin: 0 0 .5em; }
+
+.o-media--centre {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.o-media--reverse > .o-media__img {
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
+  margin: 0 0 0 1em; }
+
+/*********************************
+
+	CARD OBJECT
+
+	The card object does very little, only stacking two divs directly above one 
+	another. Whilst it seems wasteful to use a new object for this purpose, and
+	could well clutter the templates with too many class names, it is such a 
+	repeatedly used pattern that the benefits outweigh the drawbacks.
+
+	Can be extended with additional classes that change the margin under the 
+	image.
+
+	USE:
+
+	Create a card like so:
+
+	<div class="o-card">
+		<div class="o-card__img">
+			<IMG OR WHATEVER>
+		</div>
+		<div class="o-card__body">
+			<CONTENT>
+		</div>
+	</div>
+
+	Which will render:
+
+    +---------+ 
+	|         | 
+	|  Image  |
+	|         |
+	+---------+
+	|         | 
+	|  Body   |
+	|         |
+	|         |
+	+---------+
+
+**********************************/
+.o-card {
+  display: block; }
+
+.o-card__img {
+  margin-bottom: 0; }
+
+.o-card__body {
+  display: block; }
+
+/*********************************
+
+	IMAGE OBJECT
+
+	The image object is used to apply an image as a background to an element
+	(normally a <div>). Whilst not semantically perfect, it is the best solution
+	to allow control of how the image will display (through use of the '
+	background-size' attribute along with the 'background-position' attribute.)
+
+	USE:
+
+	A class of 'o-img' is applied to the div which will display the image. A 
+	'style' attribute is then set with the 'background: url();' and 
+	'background-size' if different.
+
+	For example:
+
+	<div class="o-img" style="background:url(http://img.photobucket.com/albums
+	/v493/streetvw/DSCN2013.jpg);">
+	</div>
+
+	NOTE: When support for "object-fit" is improved, this method of displaying
+	images with be replaced.
+
+**********************************/
+.o-img {
+  background: #333;
+  background-size: cover;
+  height: 100%; }
+
+/*********************************
+
+	AVATAR OBJECT
+
+	The avatar object acts as a wrapper for a ".img", styling it to appear as a
+	circle and sizing it appropriately.
+
+	USE:
+
+	<div class="o-avatar">
+		<div class="o-img"></div>
+	</div>
+
+**********************************/
+.o-avatar {
+  width: 56px;
+  height: 56px; }
+  .o-avatar .o-img {
+    border-radius: 50%; }
+
+.o-avatar--small {
+  width: 30px;
+  height: 30px; }
+
+.o-avatar--large {
+  width: 75px;
+  height: 75px; }
+
+.o-avatar--xlarge {
+  width: 150px;
+  height: 150px; }
+
+/*** COMPONENTS ***
+
+	Designed components, chunks of UI
+
+*/
+/*** TRUMPS ***
+
+	Helpers and overrides.
+
+*/
+/*********************************
+
+	<H*> TAG SIZE TRUMPS
+
+	Use these classes to force an element to take on the font-size of our
+	regular headings.
+
+	This double-stranded heading hierarchy allows for proper, semantic use of
+	<h*> tags whilst styling elements as we would wish.
+
+	This strand of the the hierarchy uses the greek alphabet to denote seniority.
+
+**********************************/
+.alpha {
+  font-size: 64px;
+  font-size: 4rem;
+  line-height: 1.125; }
+
+.beta {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1; }
+
+.gamma {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+.delta {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2; }
+
+.epsilon {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+.zeta {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.7142857143; }
+
+.header--no-margins {
+  margin: 0; }
+
+.force--100 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 100% !important;
+      -ms-flex: 0 0 100% !important;
+          flex: 0 0 100% !important; }
+
+.force--10 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 10% !important;
+      -ms-flex: 0 0 10% !important;
+          flex: 0 0 10% !important; }
+
+.force--20 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 20% !important;
+      -ms-flex: 0 0 20% !important;
+          flex: 0 0 20% !important; }
+
+.force--30 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 30% !important;
+      -ms-flex: 0 0 30% !important;
+          flex: 0 0 30% !important; }
+
+.force--40 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 40% !important;
+      -ms-flex: 0 0 40% !important;
+          flex: 0 0 40% !important; }
+
+.force--50 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 50% !important;
+      -ms-flex: 0 0 50% !important;
+          flex: 0 0 50% !important; }
+
+.force--60 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 60% !important;
+      -ms-flex: 0 0 60% !important;
+          flex: 0 0 60% !important; }
+
+.force--70 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 70% !important;
+      -ms-flex: 0 0 70% !important;
+          flex: 0 0 70% !important; }
+
+.force--80 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 80% !important;
+      -ms-flex: 0 0 80% !important;
+          flex: 0 0 80% !important; }
+
+.force--90 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 90% !important;
+      -ms-flex: 0 0 90% !important;
+          flex: 0 0 90% !important; }
+
+.force--25 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 25% !important;
+      -ms-flex: 0 0 25% !important;
+          flex: 0 0 25% !important; }
+
+.force--75 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 75% !important;
+      -ms-flex: 0 0 75% !important;
+          flex: 0 0 75% !important; }
+
+.force--33 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 33.3333% !important;
+      -ms-flex: 0 0 33.3333% !important;
+          flex: 0 0 33.3333% !important; }
+
+.force--66 {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 66.6666% !important;
+      -ms-flex: 0 0 66.6666% !important;
+          flex: 0 0 66.6666% !important; }
+
+@media screen and (min-width: 40.063em) {
+  .med-force--100 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 100% !important;
+        -ms-flex: 0 0 100% !important;
+            flex: 0 0 100% !important; }
+  .med-force--10 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 10% !important;
+        -ms-flex: 0 0 10% !important;
+            flex: 0 0 10% !important; }
+  .med-force--20 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 20% !important;
+        -ms-flex: 0 0 20% !important;
+            flex: 0 0 20% !important; }
+  .med-force--30 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 30% !important;
+        -ms-flex: 0 0 30% !important;
+            flex: 0 0 30% !important; }
+  .med-force--40 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 40% !important;
+        -ms-flex: 0 0 40% !important;
+            flex: 0 0 40% !important; }
+  .med-force--50 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 50% !important;
+        -ms-flex: 0 0 50% !important;
+            flex: 0 0 50% !important; }
+  .med-force--60 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 60% !important;
+        -ms-flex: 0 0 60% !important;
+            flex: 0 0 60% !important; }
+  .med-force--70 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 70% !important;
+        -ms-flex: 0 0 70% !important;
+            flex: 0 0 70% !important; }
+  .med-force--80 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 80% !important;
+        -ms-flex: 0 0 80% !important;
+            flex: 0 0 80% !important; }
+  .med-force--90 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 90% !important;
+        -ms-flex: 0 0 90% !important;
+            flex: 0 0 90% !important; }
+  .med-force--25 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 25% !important;
+        -ms-flex: 0 0 25% !important;
+            flex: 0 0 25% !important; }
+  .med-force--75 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 75% !important;
+        -ms-flex: 0 0 75% !important;
+            flex: 0 0 75% !important; }
+  .med-force--33 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 33.3333% !important;
+        -ms-flex: 0 0 33.3333% !important;
+            flex: 0 0 33.3333% !important; }
+  .med-force--66 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 66.6666% !important;
+        -ms-flex: 0 0 66.6666% !important;
+            flex: 0 0 66.6666% !important; } }
+
+@media screen and (min-width: 64em) {
+  .lrg-force--100 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 100% !important;
+        -ms-flex: 0 0 100% !important;
+            flex: 0 0 100% !important; }
+  .lrg-force--10 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 10% !important;
+        -ms-flex: 0 0 10% !important;
+            flex: 0 0 10% !important; }
+  .lrg-force--20 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 20% !important;
+        -ms-flex: 0 0 20% !important;
+            flex: 0 0 20% !important; }
+  .lrg-force--30 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 30% !important;
+        -ms-flex: 0 0 30% !important;
+            flex: 0 0 30% !important; }
+  .lrg-force--40 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 40% !important;
+        -ms-flex: 0 0 40% !important;
+            flex: 0 0 40% !important; }
+  .lrg-force--50 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 50% !important;
+        -ms-flex: 0 0 50% !important;
+            flex: 0 0 50% !important; }
+  .lrg-force--60 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 60% !important;
+        -ms-flex: 0 0 60% !important;
+            flex: 0 0 60% !important; }
+  .lrg-force--70 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 70% !important;
+        -ms-flex: 0 0 70% !important;
+            flex: 0 0 70% !important; }
+  .lrg-force--80 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 80% !important;
+        -ms-flex: 0 0 80% !important;
+            flex: 0 0 80% !important; }
+  .lrg-force--90 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 90% !important;
+        -ms-flex: 0 0 90% !important;
+            flex: 0 0 90% !important; }
+  .lrg-force--25 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 25% !important;
+        -ms-flex: 0 0 25% !important;
+            flex: 0 0 25% !important; }
+  .lrg-force--75 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 75% !important;
+        -ms-flex: 0 0 75% !important;
+            flex: 0 0 75% !important; }
+  .lrg-force--33 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 33.3333% !important;
+        -ms-flex: 0 0 33.3333% !important;
+            flex: 0 0 33.3333% !important; }
+  .lrg-force--66 {
+    -webkit-box-flex: 0 !important;
+    -webkit-flex: 0 0 66.6666% !important;
+        -ms-flex: 0 0 66.6666% !important;
+            flex: 0 0 66.6666% !important; } }

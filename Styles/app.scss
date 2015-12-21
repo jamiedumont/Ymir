@@ -27,7 +27,7 @@
 @import "1_settings/settings.globals";
 
 // Make some useful colours available throughout the framework
-@import "1_settings/setting.colours";
+@import "1_settings/settings.colours";
 
 // Define our breakpoints
 @import "1_settings/settings.breakpoints";
@@ -143,20 +143,6 @@
 	Designed components, chunks of UI
 
 */
-
-@import "6_components/component.category-tag";
-
-@import "6_components/component.sidebar-header";
-
-@import "6_components/component.tags";
-
-@import "6_components/component.mailing-list-banner";
-
-@import "6_components/component.footer";
-
-@import "6_components/component.header";
-
-@import "6_components/component.featured-blog-post";
 
 
 
