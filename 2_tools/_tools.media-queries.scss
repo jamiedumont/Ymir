@@ -1,18 +1,18 @@
 /*********************************
 
-	MEDIA QUERY MIXIN
+  MEDIA QUERY MIXIN
 
-	A simple mixin to quickly generate whole media queries from the aliases and
-	conditions defined in `_settings.breakpoints.scss`.
+  A simple mixin to quickly generate whole media queries from the aliases and
+  conditions defined in `_settings.breakpoints.scss`.
 
-	Usage:
+  Usage:
 
-	.foo {
-		color: green;
-		@include media-query(sml) {
-			color: red;
-		}
-	}
+  .foo {
+    color: green;
+    @include media-query(sml) {
+      color: red;
+    }
+  }
 
 **********************************/
 
