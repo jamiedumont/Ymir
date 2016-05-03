@@ -1,15 +1,15 @@
 /*********************************
 
-	BARE LIST OBJECT
+  BARE LIST OBJECT
 
-	This object simply removes any indents and bullet points from lists.
+  This object simply removes any indents and bullet points from lists.
 
-	NOTE: This object is semi-redundant as the list-style is 'none' by default on this project.
+  NOTE: This object is semi-redundant as the list-style is 'none' by default on this project.
 
 **********************************/
 
 .o-list-bare {
-    margin:  0;
-    padding: 0;
-    list-style: none;
+  margin:  0;
+  padding: 0;
+  list-style: none;
 }

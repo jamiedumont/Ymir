@@ -1,25 +1,25 @@
 /* MAIN SCSS
 
-	This project has been organised in accordance with Harry Robert's ITCSS
-	architecture. The aim of this is to harness the cascading nature of CSS
-	and use it as an advantage rather than a constant headache. For info please
-	read: https://speakerdeck.com/dafed/managing-css-projects-with-itcss
+  This project has been organised in accordance with Harry Robert's ITCSS
+  architecture. The aim of this is to harness the cascading nature of CSS
+  and use it as an advantage rather than a constant headache. For info please
+  read: https://speakerdeck.com/dafed/managing-css-projects-with-itcss
 
-	The Sass written also adhears to much of his CSS Guidelines found here.
-	Anyone wanting to add-to or amend the codebase should start by reading these.
-	Whilst not all guidelines are adheared to, many are; and editors should be
-	able to recognise these.
+  The Sass written also adhears to much of his CSS Guidelines found here.
+  Anyone wanting to add-to or amend the codebase should start by reading these.
+  Whilst not all guidelines are adheared to, many are; and editors should be
+  able to recognise these.
 
-	http://cssguidelin.es/
+  http://cssguidelin.es/
 
 */
 
 
 /*** SETTINGS ***
 
-	Here we include files that control the basics of our project. This will
-	include globally available settings and variables such as our colours,
-	default font sizes, and spacing units.
+  Here we include files that control the basics of our project. This will
+  include globally available settings and variables such as our colours,
+  default font sizes, and spacing units.
 
 */
 
@@ -37,8 +37,8 @@
 
 /*** TOOLS ***
 
-	In 'Tools' we create our mixins, helper functions, and globally-available
-	tools.
+  In 'Tools' we create our mixins, helper functions, and globally-available
+  tools.
 
 */
 
@@ -55,7 +55,7 @@
 
 /*** GENERIC ***
 
-	Ground zero styles
+  Ground zero styles
 
 */
 
@@ -72,7 +72,7 @@
 
 /*** BASE ***
 
-	Unclassed HTML selectors
+  Unclassed HTML selectors
 
 */
 
@@ -97,7 +97,7 @@
 
 /*** OBJECTS ***
 
-	Cosmetic free design patterns
+  Cosmetic free design patterns
 
 */
 
@@ -138,17 +138,17 @@
 
 /*** COMPONENTS ***
 
-	Designed components, chunks of UI
+  Designed components, chunks of UI
 
 */
 
-
+// Your custom components are likely to go here. (Hint: Put them here...)
 
 
 
 /*** TRUMPS ***
 
-	Helpers and overrides.
+  Helpers and overrides.
 
 */
 
